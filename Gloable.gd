@@ -1,7 +1,7 @@
 extends Node
 
 var SPEED = 400.0
-var JUMP_VELOCITY = -950.0
+var JUMP_VELOCITY = -420.0
 var stunned:bool = false
 var bloom_mode:bool = true
 var strength 
