@@ -13,7 +13,10 @@ func changeState(newState: State):
 func _ready() -> void:
 	for child in get_children():
 		child.animatedSprite = $"../AnimatedSprite2D"
-		child.player = get_parent()
+		child.player = $".."
+		child.rightHitArea = $"../RightHitArea"
+		child.leftHitArea = $"../LeftHitArea"
+		child.attackCooldown = $"../attackCooldown"
 	
 	initialState.Enter()
 	currentState = initialState
@@ -21,9 +24,5 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var newState = currentState.Physics_Update(delta)
 	if newState: changeState(get_node(newState))
-
-	print(currentState.name)
-	print(Input.is_action_just_pressed("jump"))
-	print(get_parent().is_on_floor())
 
 	get_parent().move_and_slide()

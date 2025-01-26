@@ -1,9 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://dq357qdk4e7h7"]
+[gd_scene load_steps=15 format=3 uid="uid://dq357qdk4e7h7"]
 
 [ext_resource type="Texture2D" uid="uid://87xptxkeokpy" path="res://Blue.png" id="1_eg78h"]
 [ext_resource type="PackedScene" uid="uid://dxpsbhrmnnwgp" path="res://Scenes/neon.tscn" id="2_qchii"]
 [ext_resource type="Texture2D" uid="uid://dc7s3gxm5rkeh" path="res://Terrain (16x16).png" id="3_qtwro"]
 [ext_resource type="PackedScene" uid="uid://cjyy8febtbp2j" path="res://player/main_player.tscn" id="4_fmace"]
+[ext_resource type="Script" path="res://test_object_script.gd" id="5_r2v3g"]
+[ext_resource type="Script" path="res://test_character_body_script.gd" id="5_xawfm"]
+[ext_resource type="Texture2D" uid="uid://ct5rxblgri20r" path="res://icon.svg" id="6_wolpy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hnxuy"]
 texture = ExtResource("3_qtwro")
@@ -167,6 +170,24 @@ texture = ExtResource("3_qtwro")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_hnxuy")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0gyig"]
+
+[sub_resource type="Gradient" id="Gradient_7ok5x"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.452416, 0.383959, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cadym"]
+gradient = SubResource("Gradient_7ok5x")
+width = 20
+height = 3
+
+[sub_resource type="Gradient" id="Gradient_rrwng"]
+colors = PackedColorArray(1, 0, 0, 1, 0.566092, 1.76881e-06, 3.36915e-07, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_t15bg"]
+gradient = SubResource("Gradient_rrwng")
+width = 20
+height = 3
+
 [node name="Node" type="Node"]
 
 [node name="هلو حسوني" type="TextureRect" parent="."]
@@ -188,3 +209,91 @@ layer_0/tile_data = PackedInt32Array(393217, 851968, 8, 393218, 851968, 8, 39321
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("4_fmace")]
 position = Vector2(35, 96)
+
+[node name="TestCharacterBody" type="CharacterBody2D" parent="."]
+position = Vector2(365, 86)
+collision_layer = 3
+script = ExtResource("5_xawfm")
+
+[node name="Sprite2D" type="Sprite2D" parent="TestCharacterBody"]
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("6_wolpy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestCharacterBody"]
+shape = SubResource("RectangleShape2D_0gyig")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="TestCharacterBody"]
+offset_left = -10.0
+offset_top = -15.0
+offset_right = 10.0
+offset_bottom = -12.0
+value = 100.0
+texture_under = SubResource("GradientTexture2D_cadym")
+texture_progress = SubResource("GradientTexture2D_t15bg")
+
+[node name="TestCharacterBody2" type="CharacterBody2D" parent="."]
+position = Vector2(465, 86)
+collision_layer = 3
+script = ExtResource("5_xawfm")
+
+[node name="Sprite2D" type="Sprite2D" parent="TestCharacterBody2"]
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("6_wolpy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestCharacterBody2"]
+shape = SubResource("RectangleShape2D_0gyig")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="TestCharacterBody2"]
+offset_left = -10.0
+offset_top = -15.0
+offset_right = 10.0
+offset_bottom = -12.0
+value = 100.0
+texture_under = SubResource("GradientTexture2D_cadym")
+texture_progress = SubResource("GradientTexture2D_t15bg")
+
+[node name="TestObject" type="Node2D" parent="."]
+position = Vector2(170, 86)
+script = ExtResource("5_r2v3g")
+
+[node name="Sprite2D" type="Sprite2D" parent="TestObject"]
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("6_wolpy")
+
+[node name="Area2D" type="Area2D" parent="TestObject"]
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestObject/Area2D"]
+shape = SubResource("RectangleShape2D_0gyig")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="TestObject"]
+offset_left = -10.0
+offset_top = -15.0
+offset_right = 10.0
+offset_bottom = -12.0
+value = 100.0
+texture_under = SubResource("GradientTexture2D_cadym")
+texture_progress = SubResource("GradientTexture2D_t15bg")
+
+[node name="TestObject2" type="Node2D" parent="."]
+position = Vector2(298, 86)
+script = ExtResource("5_r2v3g")
+
+[node name="Sprite2D" type="Sprite2D" parent="TestObject2"]
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("6_wolpy")
+
+[node name="Area2D" type="Area2D" parent="TestObject2"]
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestObject2/Area2D"]
+shape = SubResource("RectangleShape2D_0gyig")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="TestObject2"]
+offset_left = -10.0
+offset_top = -15.0
+offset_right = 10.0
+offset_bottom = -12.0
+value = 100.0
+texture_under = SubResource("GradientTexture2D_cadym")
+texture_progress = SubResource("GradientTexture2D_t15bg")

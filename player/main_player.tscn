@@ -1,5 +1,7 @@
-[gd_scene load_steps=44 format=3 uid="uid://cjyy8febtbp2j"]
+[gd_scene load_steps=56 format=3 uid="uid://cjyy8febtbp2j"]
 
+[ext_resource type="PackedScene" uid="uid://fu0nv1wtmjc8" path="res://player/hit_area.tscn" id="1_1ch3w"]
+[ext_resource type="Texture2D" uid="uid://systfx0d7ehg" path="res://2D_SL_Knight_v1.0/Attacks.png" id="1_s2f1h"]
 [ext_resource type="Texture2D" uid="uid://n24c4lcj5rtq" path="res://2D_SL_Knight_v1.0/Idle.png" id="2_b44go"]
 [ext_resource type="Texture2D" uid="uid://dy8xvn4l8n6f4" path="res://2D_SL_Knight_v1.0/Run.png" id="3_m0h2h"]
 [ext_resource type="Texture2D" uid="uid://bqnmr62ryoh2y" path="res://2D_SL_Knight_v1.0/Jump.png" id="4_ouds5"]
@@ -9,6 +11,42 @@
 [ext_resource type="Script" path="res://player/fallState.gd" id="7_cruh8"]
 [ext_resource type="Script" path="res://player/jumpState.gd" id="8_37uh8"]
 [ext_resource type="Script" path="res://player/double_jumpState.gd" id="9_1knfi"]
+[ext_resource type="Script" path="res://player/attackState.gd" id="12_k65lg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aq48t"]
+size = Vector2(21, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3l4c"]
+atlas = ExtResource("1_s2f1h")
+region = Rect2(0, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0c4s"]
+atlas = ExtResource("1_s2f1h")
+region = Rect2(128, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vo0nb"]
+atlas = ExtResource("1_s2f1h")
+region = Rect2(256, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ab710"]
+atlas = ExtResource("1_s2f1h")
+region = Rect2(384, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvj4n"]
+atlas = ExtResource("1_s2f1h")
+region = Rect2(512, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7u7sg"]
+atlas = ExtResource("1_s2f1h")
+region = Rect2(640, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2uisi"]
+atlas = ExtResource("1_s2f1h")
+region = Rect2(768, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dkohy"]
+atlas = ExtResource("1_s2f1h")
+region = Rect2(896, 0, 128, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f5yr6"]
 atlas = ExtResource("4_ouds5")
@@ -141,6 +179,38 @@ region = Rect2(128, 192, 128, 64)
 [sub_resource type="SpriteFrames" id="SpriteFrames_s8xbw"]
 animations = [{
 "frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_k3l4c")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_g0c4s")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_vo0nb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ab710")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvj4n")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_7u7sg")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_2uisi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dkohy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3l4c")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 12.0
+}, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_f5yr6")
 }, {
@@ -266,16 +336,32 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sp0n4"]
-size = Vector2(35, 45)
+size = Vector2(33, 45)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 texture_filter = 1
 
+[node name="RightHitArea" parent="." instance=ExtResource("1_1ch3w")]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightHitArea"]
+position = Vector2(22.5, -22.5)
+shape = SubResource("RectangleShape2D_aq48t")
+
+[node name="LeftHitArea" parent="." instance=ExtResource("1_1ch3w")]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftHitArea"]
+position = Vector2(-22, -22.5)
+shape = SubResource("RectangleShape2D_aq48t")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_s8xbw")
-animation = &"jump"
+animation = &"attack"
 autoplay = "idle"
+frame = 8
+frame_progress = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
@@ -283,8 +369,12 @@ position_smoothing_enabled = true
 position_smoothing_speed = 7.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, -22.5)
+position = Vector2(1.5, -22.5)
 shape = SubResource("RectangleShape2D_sp0n4")
+
+[node name="attackCooldown" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("6_e48gd")
@@ -308,3 +398,7 @@ animation = "jump"
 [node name="double_jump" type="Node" parent="StateMachine"]
 script = ExtResource("9_1knfi")
 animation = "double_jump"
+
+[node name="attack" type="Node" parent="StateMachine"]
+script = ExtResource("12_k65lg")
+animation = "attack"

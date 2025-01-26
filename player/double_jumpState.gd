@@ -28,6 +28,9 @@ func Physics_Update(delta: float) -> String:
 	else:
 		player.velocity += player.get_gravity() * delta
 		newState = "double_jump"
+			
+	if Input.is_action_just_pressed("attack") and attackCooldown.is_stopped():
+		newState = "attack"
 		
 	return newState
 	
