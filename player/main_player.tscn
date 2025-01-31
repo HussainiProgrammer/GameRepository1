@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://cjyy8febtbp2j"]
+[gd_scene load_steps=57 format=3 uid="uid://cjyy8febtbp2j"]
 
 [ext_resource type="PackedScene" uid="uid://fu0nv1wtmjc8" path="res://player/hit_area.tscn" id="1_1ch3w"]
 [ext_resource type="Texture2D" uid="uid://systfx0d7ehg" path="res://2D_SL_Knight_v1.0/Attacks.png" id="1_s2f1h"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://player/jumpState.gd" id="8_37uh8"]
 [ext_resource type="Script" path="res://player/double_jumpState.gd" id="9_1knfi"]
 [ext_resource type="Script" path="res://player/attackState.gd" id="12_k65lg"]
+[ext_resource type="Script" path="res://player/sprintState.gd" id="13_4gjo5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aq48t"]
 size = Vector2(21, 45)
@@ -402,3 +403,6 @@ animation = "double_jump"
 [node name="attack" type="Node" parent="StateMachine"]
 script = ExtResource("12_k65lg")
 animation = "attack"
+
+[node name="sprint" type="Node" parent="StateMachine"]
+script = ExtResource("13_4gjo5")

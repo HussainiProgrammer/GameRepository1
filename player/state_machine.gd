@@ -2,7 +2,7 @@ extends Node
 
 @onready var initialState: State = $idle
 var currentState: State
-var canDoubleJump = true
+var canDoubleJump: bool = true
 
 func changeState(newState: State):
 	if newState != currentState:
